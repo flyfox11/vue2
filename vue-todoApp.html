@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单的 Todo App </title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+
+</nav>
+<div class="container" id="app">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Welcome to Vue 2.0
+                </div>
+                <div class="panel-body">
+                    <h1>{{message}}</h1>
+                    <!--<input type="text" class="form-control" v-model="message">-->
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="(todo,index) in todos">{{todo.title}}
+                        <button class="btn btn-danger btn-xs pull-right" @click="deleteTodo(index)">删除</button>
+                        </li>
+                    </ul>
+                    <form v-on:submit.prevent="addTodo(newTodo)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Add a new todo" v-model="newTodo.title">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success" type="submit">
+                                Add Todo
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="vue%20.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            message:'Hello World',
+            todos:[
+                {id:1,title:'learn vuejs'},
+                {id:2,title:'learn angularjs'},
+                {id:3,title:'learn reactjs'},
+            ],
+            newTodo:{id:null,title:''},
+        },
+        methods:{
+            addTodo:function (newTodo) {
+                if(this.newTodo.title==''){
+                    alert('请输入内容');
+                    return;
+                }
+                this.todos.push(newTodo);
+                this.newTodo={id:null,title:''};
+            },
+            deleteTodo:function (index) {
+               this.todos.splice(index,1);
+            }
+        }
+
+    });
+</script>
+</body>
+</html>
